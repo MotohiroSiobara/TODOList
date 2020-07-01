@@ -6,7 +6,9 @@
       <router-link to="/lists/done" class="header-item">実行済み</router-link>
       <router-link to="/create" class="header-item">作成</router-link>
     </header>
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -60,4 +62,14 @@ export default {
   .header-item:hover {
     color: #42b983;
   }
+
+  /* トランジション */
+  .v-enter-active, v-leave-active {
+    transition: opacity 1s;
+  }
+
+  .v-enter, .v-leave-to {
+    opacity: 0;
+  }
+  /*  */
 </style>

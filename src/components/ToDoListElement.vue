@@ -99,6 +99,9 @@
         margin: 20px 100px;
         background-color: lightgoldenrodyellow;
         position: relative;
+
+        transition-property: background-color;
+        transition-duration: 1s;
     }
 
     .element-container:hover {
