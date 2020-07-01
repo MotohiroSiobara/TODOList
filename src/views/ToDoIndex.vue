@@ -49,12 +49,18 @@
             </div>
         </div>
 
+        <!--   名言     -->
+        <div v-if="quoteData !== null" class="quote-section">
+            <h3>{{ quoteData.quote }}</h3>
+            <p>{{ quoteData.author }}</p>
+        </div>
     </div>
 </template>
 
 <script>
     import OrderButtons from "../components/OrderButtons";
     import ToDoListElement from "../components/ToDoListElement";
+    import axios from 'axios';
     export default {
         name: "ToDoIndex",
 
@@ -62,6 +68,7 @@
             return {
                 keyword: '',
                 ToDoLists: null,
+                quoteData: null,
             }
         },
 
@@ -107,6 +114,21 @@
 
         created() {
             this.ToDoLists = this.$store.getters.ToDoLists;
+
+            axios({
+                "method": "GET",
+                "url": "https://quotable-quotes.p.rapidapi.com/randomQuotes",
+                "headers": {
+                    "content-type": "application/octet-stream",
+                    "x-rapidapi-host": "quotable-quotes.p.rapidapi.com",
+                    "x-rapidapi-key": "b0f9ee0c0fmsh5ab0801181881f1p16421bjsn1e1c3b33aedb",
+                    "useQueryString": true
+                }
+            }).then((response) => {
+                this.quoteData = response.data;
+            }).catch((error) => {
+                    console.log(error)
+                });
         }
     }
 </script>
@@ -167,5 +189,9 @@
         width: 80%;
         margin: 30px auto 0;
         border: #2c3e50 2px solid;
+    }
+
+    .quote-section {
+        margin-top: 200px;
     }
 </style>
